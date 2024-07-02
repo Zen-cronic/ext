@@ -2,9 +2,9 @@ import { extname } from "node:path";
 
 /**
  *
- * @param {string} ext
+ * @param {string} ext - The expected extension
  * @returns {(path:string) => boolean}
-
+ *
  */
 function isExtGenerator(ext) {
   /**
@@ -13,32 +13,26 @@ function isExtGenerator(ext) {
   return function isThisExt(path) {
     //.env & makefile => "" empty str
     // if extname returns "" => handle differently
-
-    
     const extnameResult = extname(path);
 
-    //either dotfiles or others
-    if (extnameResult === "") {
+    //either one or more dots
+    if (isDotFile(path)) {
+      return ext === path;
+    }
+
+    //others (non-dotfile, extless)
+    else if (extnameResult === "") {
       console.log("Provided ext:", ext);
 
-      //dotfile
-    //   if (startsWithDot(ext)) {
-      if (isDotFile(ext)) {
-        return ext === path;
-      }
-
-      //other
-      else {
-        return ext.toLowerCase() === path.toLowerCase();
-      }
+      return ext.toLowerCase() === path.toLowerCase();
     }
 
-    //not for every file (e.g., makefile)
-    // else {
-    if (!startsWithDot(ext)) {
-      ext = "." + ext;
+    //ext files but missing "."
+    else {
+      if (!startsWithDot(ext)) {
+        ext = "." + ext;
+      }
     }
-    // }
 
     return ext === extnameResult;
   };
@@ -59,7 +53,6 @@ function startsWithDot(str) {
  * @returns {boolean}
  */
 function isDotFile(fileName) {
-  // regex or startWith
   return /^\.[^\.].*/.test(fileName);
 }
 
