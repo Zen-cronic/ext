@@ -1,22 +1,64 @@
-const {extname} = require("path")
+import { extname } from "node:path";
 
+/**
+ *
+ * @param {string} ext - The expected extension
+ * @returns {(path:string) => boolean}
+ *
+ */
+export function isExtGenerator(ext) {
+  /**
+   * @param {string} path
+   */
+  return function isThisExt(path) {
+    //.env & makefile => "" empty str
+    // if extname returns "" => handle differently
+    const extnameResult = extname(path);
 
-function isExt(path) {
-    return extname(path)  
+    //either one or more dots
+    if (isDotFile(path)) {
+      return ext === path;
+    }
+
+    //others (non-dotfile, extless)
+    else if (extnameResult === "") {
+      console.log("Provided ext:", ext);
+
+      return ext.toLowerCase() === path.toLowerCase();
+    }
+
+    //ext files but missing "."
+    else {
+      if (!startsWithDot(ext)) {
+        ext = "." + ext;
+      }
+    }
+
+    return ext === extnameResult;
+  };
 }
 
+/**
+ *
+ * @param {string} str
+ * @returns {boolean}
+ */
+function startsWithDot(str) {
+  return str.startsWith(".");
+}
 
-const indexPath =   "index.js"
+/**
+ *
+ * @param {string} fileName
+ * @returns {boolean}
+ */
+function isDotFile(fileName) {
+  return /^\.[^\.].*/.test(fileName);
+}
 
-console.log(isExt(indexPath));  //".js"
-
-const envPath = ".env"
-console.log(isExt(envPath) );  //"" empty str (+ \n)
-
-const makeFilePath = "makefile"
-console.log(isExt(makeFilePath)); //"" empty str (+ \n)
-
-const localEnvPath = ".env.local"
-console.log(isExt(localEnvPath));  // .local 
-
+export const isJS = isExtGenerator(".js");
+export const isJSX = isExtGenerator(".jsx");
+export const isTS = isExtGenerator(".ts");
+export const isTSX = isExtGenerator(".tsx");
+export const isJSON = isExtGenerator(".json");
 
