@@ -1,4 +1,5 @@
-import { extname } from "node:path";
+import { extname, basename } from "node:path";
+import { isDotFile, startsWithDot, getClassName } from "./utils.js";
 
 /**
  *
@@ -7,20 +8,26 @@ import { extname } from "node:path";
  *
  */
 export function isExtFactory(ext) {
-  
+  if (typeof ext !== "string") {
+    throw new Error(
+      `Argument must be of type string. Received: ${typeof ext}; ${getClassName(
+        ext
+      )}`
+    );
+  }
   return function isThisExt(path) {
+    const fileName = basename(path);
+
     //dotfile & dotless files => "" empty str
-    const extnameResult = extname(path);
+    const extNameResult = extname(fileName);
 
     //either one or more dots
-    if (isDotFile(path)) {
-      return ext === path;
+    if (isDotFile(fileName)) {
+      return ext === fileName;
     }
 
     //others (non-dotfile, extless)
-    else if (extnameResult === "") {
-      console.log("Provided ext:", ext);
-
+    else if (extNameResult === "") {
       return ext.toLowerCase() === path.toLowerCase();
     }
 
@@ -31,30 +38,10 @@ export function isExtFactory(ext) {
       }
     }
 
-    return ext === extnameResult;
+    return ext === extNameResult;
   };
 }
 
-/**
- *
- * @param {string} str
- * @returns {boolean}
- */
-function startsWithDot(str) {
-  return str.startsWith(".");
-}
-
-/**
- *
- * @param {string} fileName
- * @returns {boolean}
- */
-function isDotFile(fileName) {
-  return /^\.[^\.].*/.test(fileName);
-}
-
 export const isJS = isExtFactory(".js");
-export const isJSX = isExtFactory(".jsx");
 export const isTS = isExtFactory(".ts");
-export const isTSX = isExtFactory(".tsx");
 export const isJSON = isExtFactory(".json");
