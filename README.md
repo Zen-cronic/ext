@@ -2,11 +2,11 @@
 
 ## What
 
-A curried library to check the extension of a file, including extension-less and dotfiles.
+A curried library to check the extension type of a file, including extension-less and dotfiles. It works on both relative and absolute paths.
 
 ## Why?
 
-To replace repetitive checks using `path.extname` or  `String.endsWith` or a regex pattern. 
+To replace repetitive checks using `path.extname` or `String.endsWith` or a regex pattern.
 
 ## Example
 
@@ -19,9 +19,9 @@ const jsPath = "../index.js";
 const tsPath = "./index.ts";
 const jsonPath = "/home/user/project/package.json";
 
-isJS(jsPath); //true
-isTS(tsPath); //true
-isJSON(jsonPath); //true
+isJS(jsPath);      //true
+isTS(tsPath);      //true
+isJSON(jsonPath);  //true
 ```
 
 - Or you can create your own checkers:
@@ -35,9 +35,8 @@ const envLocalPath = "../.env.local";
 const envPath = "./.env";
 
 isEnvLocal(envLocalPath); //true
-isEnvLocal(envPath); //false
+isEnvLocal(envPath);      //false
 ```
-
 
 ## Installation
 
