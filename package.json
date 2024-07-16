@@ -6,11 +6,24 @@
   "license": "MIT",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=6"
+  },
   "scripts": {
     "test": "node --test",
     "check:tar": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
-  "keywords": [],
-  "files": ["CHANGELOG.md", "utils.js"]
-
+  "keywords": [
+    "extension",
+    "extname",
+    "curry",
+    "path",
+    "file",
+    "type",
+    "ext"
+  ],
+  "files": [
+    "CHANGELOG.md",
+    "utils.js"
+  ]
 }

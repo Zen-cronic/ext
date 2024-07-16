@@ -1,0 +1,23 @@
+name: CI Tests
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [6, 8, 10, 12]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js Version ${{matrix.node}}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node}}
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
