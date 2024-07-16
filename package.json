@@ -1,13 +1,16 @@
 {
-  "name": "ext-0",
+  "name": "exty",
+  "description": "",
   "version": "1.0.0",
+  "author": "Kaung Zin Hein (https://www.kaungzinhein.me/)",
+  "license": "MIT",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "check:tar": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz"
   },
   "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "description": ""
+  "files": ["CHANGELOG.md"]
+
 }

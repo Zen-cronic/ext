@@ -6,13 +6,10 @@ import { extname } from "node:path";
  * @returns {(path:string) => boolean}
  *
  */
-export function isExtGenerator(ext) {
-  /**
-   * @param {string} path
-   */
+export function isExtFactory(ext) {
+  
   return function isThisExt(path) {
-    //.env & makefile => "" empty str
-    // if extname returns "" => handle differently
+    //dotfile & dotless files => "" empty str
     const extnameResult = extname(path);
 
     //either one or more dots
@@ -56,9 +53,8 @@ function isDotFile(fileName) {
   return /^\.[^\.].*/.test(fileName);
 }
 
-export const isJS = isExtGenerator(".js");
-export const isJSX = isExtGenerator(".jsx");
-export const isTS = isExtGenerator(".ts");
-export const isTSX = isExtGenerator(".tsx");
-export const isJSON = isExtGenerator(".json");
-
+export const isJS = isExtFactory(".js");
+export const isJSX = isExtFactory(".jsx");
+export const isTS = isExtFactory(".ts");
+export const isTSX = isExtFactory(".tsx");
+export const isJSON = isExtFactory(".json");

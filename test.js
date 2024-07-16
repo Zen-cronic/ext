@@ -1,14 +1,13 @@
-import { isExtGenerator, isJS, isTS, isJSON } from "./index.js";
+import { isExtFactory, isJS, isTS, isJSON } from "./index.js";
 import { describe, it } from "node:test";
 import assert from "node:assert";
 
 describe("exty", () => {
-
   //fixtures
   const jsPath = "index.js";
-  const jsxPath = "index.jsx";
+  // const jsxPath = "index.jsx";
   const tsPath = "index.ts";
-  const tsxPath = "index.tsx";
+  // const tsxPath = "index.tsx";
   const envPath = ".env";
   const localEnvPath = ".env.local";
   const makeFilePath = "makefile";
@@ -16,7 +15,6 @@ describe("exty", () => {
 
   describe("exported functions", () => {
     it("should return true", () => {
-    
       assert.strictEqual(
         isJS(jsPath),
         true,
@@ -36,9 +34,9 @@ describe("exty", () => {
   });
   describe("create functions from factory", () => {
     it("should return true", () => {
-      const isEnv = isExtGenerator(".env");
-      const isLocalEnv = isExtGenerator(".env.local");
-      const isMakefile = isExtGenerator("makefile");
+      const isEnv = isExtFactory(".env");
+      const isLocalEnv = isExtFactory(".env.local");
+      const isMakefile = isExtFactory("makefile");
 
       assert.strictEqual(
         isEnv(envPath),
@@ -58,4 +56,3 @@ describe("exty", () => {
     });
   });
 });
-
