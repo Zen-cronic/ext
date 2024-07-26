@@ -1,7 +1,7 @@
 {
   "name": "exty",
   "description": "A curried library to check the extension of a file",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Kaung Zin Hein (https://www.kaungzinhein.me/)",
   "license": "MIT",
   "main": "index.js",
@@ -24,6 +24,7 @@
   ],
   "files": [
     "CHANGELOG.md",
+    "index.d.ts",
     "utils.js"
   ]
 }
